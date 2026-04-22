@@ -1,31 +1,25 @@
-#!/bin/bash
-
-# Ask user for directory
 echo "Enter the directory path to organize:"
 read dir
 
-# Check if directory exists
 if [ ! -d "$dir" ]
 then
     echo "Directory does not exist!"
     exit 1
 fi
 
-# Create folders
 mkdir -p "$dir/Images"
 mkdir -p "$dir/Videos"
 mkdir -p "$dir/Documents"
 mkdir -p "$dir/Music"
 mkdir -p "$dir/Others"
 
-# Counters
-img_count=0
-vid_count=0
-doc_count=0
-music_count=0
-other_count=0
+imgc=0
+vidc=0
+docc=0
+musc=0
+otrc=0
 
-# Loop through files
+# Loop
 for file in "$dir"/*
 do
     if [ -f "$file" ]
@@ -37,34 +31,33 @@ do
         case "$ext" in
             jpg|jpeg|png|gif)
                 mv "$file" "$dir/Images/"
-                img_count=$((img_count + 1))
+                imgc=$((img_count + 1))
                 ;;
             mp4|mkv|avi)
                 mv "$file" "$dir/Videos/"
-                vid_count=$((vid_count + 1))
+                vidc=$((vid_count + 1))
                 ;;
             pdf|doc|docx|txt)
                 mv "$file" "$dir/Documents/"
-                doc_count=$((doc_count + 1))
+                docc=$((doc_count + 1))
                 ;;
             mp3|wav)
                 mv "$file" "$dir/Music/"
-                music_count=$((music_count + 1))
+                musc=$((music_count + 1))
                 ;;
             *)
                 mv "$file" "$dir/Others/"
-                other_count=$((other_count + 1))
+                othc=$((other_count + 1))
                 ;;
         esac
     fi
 done
 
-# Display summary
 echo "-----------------------------"
 echo "Files Organized Successfully!"
-echo "Images: $img_count"
-echo "Videos: $vid_count"
-echo "Documents: $doc_count"
-echo "Music: $music_count"
-echo "Others: $other_count"
+echo "Images: $imgc"
+echo "Videos: $vidc"
+echo "Documents: $docc"
+echo "Music: $musc"
+echo "Others: $othc"
 echo "-----------------------------"
